@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMARJEET KUSHWAHA | Web Developer Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0a0e17',
+                            light: '#111927',
+                            card: '#141d2b',
+                            border: '#1e2a3a',
+                        },
+                        accent: {
+                            blue: '#3b82f6',
+                            teal: '#06b6d4',
+                            purple: '#8b5cf6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0e17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+
+        /* --- Glass / Card --- */
+        .glass {
+            background: rgba(17, 25, 39, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Navbar link underline --- */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- Profile Image --- */
+        .profile-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        .profile-wrapper .ring-outer {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.15);
+            background: transparent;
+        }
+        .profile-wrapper .ring-inner {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.30);
+            background: transparent;
+        }
+        .profile-wrapper .img-wrap {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #111927;
+            overflow: hidden;
+            border: 3px solid rgba(59, 130, 246, 0.50);
+        }
+        .profile-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.5s ease;
+        }
+        .profile-wrapper:hover img {
+            transform: scale(1.04);
+        }
+        .profile-wrapper:hover .ring-outer {
+            border-color: rgba(59, 130, 246, 0.30);
+        }
+        .profile-wrapper:hover .ring-inner {
+            border-color: rgba(59, 130, 246, 0.55);
+        }
+        .profile-wrapper:hover .img-wrap {
+            border-color: rgba(59, 130, 246, 0.80);
+        }
+
+        @media (max-width: 1024px) {
+            .profile-wrapper {
+                width: 220px;
+                height: 220px;
+            }
+            .profile-wrapper .ring-outer {
+                inset: -10px;
+            }
+            .profile-wrapper .ring-inner {
+                inset: -4px;
+            }
+        }
+        @media (max-width: 768px) {
+            .profile-wrapper {
+                width: 160px;
+                height: 160px;
+            }
+            .profile-wrapper .ring-outer {
+                inset: -8px;
+                border-width: 1.5px;
+            }
+            .profile-wrapper .ring-inner {
+                inset: -3px;
+                border-width: 1.5px;
+            }
+            .profile-wrapper .img-wrap {
+                border-width: 2px;
+            }
+        }
+        @media (max-width: 480px) {
+            .profile-wrapper {
+                width: 130px;
+                height: 130px;
+            }
+            .profile-wrapper .ring-outer {
+                inset: -6px;
+            }
+            .profile-wrapper .ring-inner {
+                inset: -2px;
+            }
+        }
+
+        /* --- Typewriter --- */
+        .typewriter-text {
+            font-size: 1.2rem;
+            height: 2.2rem;
+        }
+        .typewriter-text span {
+            border-right: 2px solid #3b82f6;
+            padding-right: 4px;
+        }
+        @media (max-width: 768px) {
+            .typewriter-text {
+                font-size: 1rem;
+                height: 1.8rem;
+            }
+        }
+
+        /* --- Skill tags --- */
+        .skill-tag {
+            background: rgba(59, 130, 246, 0.10);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            color: #94a3b8;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background: rgba(59, 130, 246, 0.20);
+            border-color: rgba(59, 130, 246, 0.40);
+            color: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        /* --- Cards --- */
+        .card-hover {
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.30);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+
+        /* --- Floating shapes (subtle) --- */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .floating-shapes span {
+            position: absolute;
+            display: block;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.04);
+            animation: float 20s infinite ease-in-out;
+        }
+        .floating-shapes span:nth-child(1) {
+            top: 8%;
+            left: 4%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+        .floating-shapes span:nth-child(2) {
+            top: 25%;
+            right: 6%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 2s;
+        }
+        .floating-shapes span:nth-child(3) {
+            bottom: 18%;
+            left: 6%;
+            width: 100px;
+            height: 100px;
+            animation-delay: 4s;
+        }
+        .floating-shapes span:nth-child(4) {
+            top: 55%;
+            right: 4%;
+            width: 40px;
+            height: 40px;
+            animation-delay: 1.5s;
+        }
+        .floating-shapes span:nth-child(5) {
+            bottom: 8%;
+            right: 18%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-60px) rotate(180deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* --- Page transition --- */
+        .page-transition {
+            animation: fadeSlide 0.6s ease-out;
+        }
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Mobile menu --- */
+        #mobile-menu {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+
+<body class="bg-navy text-gray-200 font-sans overflow-x-hidden">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 glass top-0 border-b border-navy-border/40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl md:text-2xl font-bold font-mono text-accent-blue tracking-tight">
+                <span class="text-white">&lt;</span>A<span class="text-accent-teal">K</span><span class="text-white">/&gt;</span>
+            </a>
+
+            <ul class="hidden md:flex space-x-6 lg:space-x-8 text-sm font-medium">
+                <li><a href="index.html" class="nav-link text-gray-300 hover:text-white transition">Home</a></li>
+                <li><a href="#about" class="nav-link text-gray-300 hover:text-white transition">About</a></li>
+                <li><a href="education.html" class="nav-link text-gray-300 hover:text-white transition">Education</a></li>
+                <li><a href="projects.html" class="nav-link text-gray-300 hover:text-white transition">Projects</a></li>
+                <li><a href="#contact" class="nav-link text-gray-300 hover:text-white transition">Contact</a></li>
+            </ul>
+
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass px-6 pb-4 border-t border-navy-border/30">
+            <ul class="flex flex-col space-y-3 text-center py-2">
+                <li><a href="index.html" class="block text-gray-300 hover:text-white py-1 transition">Home</a></li>
+                <li><a href="#about" class="block text-gray-300 hover:text-white py-1 transition">About</a></li>
+                <li><a href="education.html" class="block text-gray-300 hover:text-white py-1 transition">Education</a></li>
+                <li><a href="projects.html" class="block text-gray-300 hover:text-white py-1 transition">Projects</a></li>
+                <li><a href="#contact" class="block text-gray-300 hover:text-white py-1 transition">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 pt-16 pb-8 relative overflow-hidden">
+        <div class="floating-shapes">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="max-w-6xl mx-auto w-full relative z-10">
+            <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
+
+                <!-- Left Content -->
+                <div class="space-y-4" data-aos="fade-right">
+                    <p class="text-accent-blue font-mono text-sm md:text-base tracking-wider">👋 Hello, I'm</p>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+                        AMARJEET<br />
+                        <span class="gradient-text">KUSHWAHA</span>
+                    </h1>
+                    <div class="typewriter-text text-gray-300">
+                        <span id="typewriter"></span>
+                    </div>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg">
+                        BCA Student @ VKSU | Aspiring Web Developer passionate about building responsive,
+                        user-friendly applications with modern frameworks.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="projects.html" class="px-6 md:px-8 py-2.5 bg-accent-blue text-white font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(59,130,246,0.35)] transition-all transform hover:-translate-y-1 text-sm shadow-lg shadow-accent-blue/20">
+                            View Projects
+                        </a>
+                        <!-- RESUME DOWNLOAD FIX: trigger download with correct file -->
+                        <a href="Amarjeet.pdf" download="AMARJEET_KUSHWAHA_Resume.pdf" class="px-6 md:px-8 py-2.5 border border-accent-blue/40 text-white font-semibold rounded-lg hover:bg-accent-blue/10 transition-all transform hover:-translate-y-1 text-sm">
+                            <i class="fas fa-download mr-2"></i> Resume
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right - Profile Image -->
+                <div class="flex justify-center items-center" data-aos="fade-left">
+                    <div class="profile-wrapper">
+                        <div class="ring-outer"></div>
+                        <div class="ring-inner"></div>
+                        <div class="img-wrap">
+                            <img src="amarjeet.jpeg" alt="AMARJEET KUSHWAHA"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Amarjeet+Kushwaha&size=320&background=3b82f6&color=fff&bold=true&font-size=0.4'">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 bg-navy-light/30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-14" data-aos="fade-up">
+                <span class="text-accent-blue font-mono">01.</span> About Me
+            </h2>
+
+            <div class="grid md:grid-cols-5 gap-8 md:gap-10">
+                <!-- Left: Bio -->
+                <div class="md:col-span-3 space-y-4" data-aos="fade-right">
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                        I am a dedicated <span class="text-accent-blue font-semibold">BCA student</span> at
+                        Veer Kunwar Singh University (VKSU), currently in my final year. My core passion lies in
+                        <span class="text-accent-teal font-semibold">Web Development</span> — crafting clean,
+                        responsive, and user-centric digital experiences.
+                    </p>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        I am actively seeking an internship where I can apply my foundational knowledge of
+                        front-end and back-end technologies to real-world projects, while strengthening my
+                        expertise in modern frameworks and development best practices.
+                    </p>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        I am a quick learner, a strong problem-solver, and a team player who thrives in
+                        collaborative environments. I believe in writing clean code and building products
+                        that make a difference.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="skill-tag">Quick Learner</span>
+                        <span class="skill-tag">Problem Solver</span>
+                        <span class="skill-tag">Team Player</span>
+                        <span class="skill-tag">Self-Motivated</span>
+                    </div>
+                </div>
+
+                <!-- Right: Quick Stats + Strength -->
+                <div class="md:col-span-2 space-y-4" data-aos="fade-left">
+                    <div class="glass p-5 md:p-6 rounded-2xl border border-navy-border">
+                        <h3 class="text-lg font-bold mb-3 text-accent-blue font-mono">Quick Stats</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-navy/60 p-3 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-accent-teal">BCA</div>
+                                <div class="text-xs text-gray-500">Final</div>
+                            </div>
+                            <div class="bg-navy/60 p-3 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-accent-blue">2026</div>
+                                <div class="text-xs text-gray-500">Graduation</div>
+                            </div>
+                            <div class="bg-navy/60 p-3 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-accent-purple">0+</div>
+                                <div class="text-xs text-gray-500">Projects</div>
+                            </div>
+                            <div class="bg-navy/60 p-3 rounded-xl text-center">
+                                <div class="text-2xl font-bold text-emerald-400">4</div>
+                                <div class="text-xs text-gray-500">Tech Stacks</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass p-5 md:p-6 rounded-2xl border border-navy-border">
+                        <h3 class="text-lg font-bold mb-2 text-accent-teal font-mono">Career Objective</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            To secure an internship in Web Development where I can apply my foundational
+                            knowledge of front-end and back-end technologies to real-world projects, while
+                            enhancing my skills in building responsive, user-friendly applications.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Skills -->
+            <div class="mt-14 md:mt-16">
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-8 text-accent-blue" data-aos="fade-up">
+                    <i class="fas fa-code mr-2"></i> Technical Arsenal
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" data-aos="fade-up">
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-accent-blue mb-2"><i class="fab fa-html5"></i></div>
+                        <h4 class="text-sm font-bold text-white">HTML / CSS</h4>
+                        <p class="text-xs text-gray-500">Responsive, Flex, Grid</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-yellow-400 mb-2"><i class="fab fa-js"></i></div>
+                        <h4 class="text-sm font-bold text-white">JavaScript</h4>
+                        <p class="text-xs text-gray-500">ES6, DOM, Async</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-cyan-400 mb-2"><i class="fab fa-react"></i></div>
+                        <h4 class="text-sm font-bold text-white">React</h4>
+                        <p class="text-xs text-gray-500">Hooks, Components</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-green-400 mb-2"><i class="fab fa-node-js"></i></div>
+                        <h4 class="text-sm font-bold text-white">Node.js</h4>
+                        <p class="text-xs text-gray-500">Express, REST APIs</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-blue-400 mb-2"><i class="fas fa-database"></i></div>
+                        <h4 class="text-sm font-bold text-white">SQL</h4>
+                        <p class="text-xs text-gray-500">MySQL, Queries</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-purple-400 mb-2"><i class="fas fa-code"></i></div>
+                        <h4 class="text-sm font-bold text-white">C / C++</h4>
+                        <p class="text-xs text-gray-500">DSA, OOP</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-orange-400 mb-2"><i class="fas fa-mobile-alt"></i></div>
+                        <h4 class="text-sm font-bold text-white">Tailwind CSS</h4>
+                        <p class="text-xs text-gray-500">Utility-first</p>
+                    </div>
+                    <div class="glass p-4 md:p-5 rounded-xl border border-navy-border card-hover text-center">
+                        <div class="text-2xl text-pink-400 mb-2"><i class="fas fa-git-alt"></i></div>
+                        <h4 class="text-sm font-bold text-white">Git / GitHub</h4>
+                        <p class="text-xs text-gray-500">Version Control</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="py-16 md:py-20 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-3" data-aos="fade-up">
+                <span class="text-accent-blue font-mono">02.</span> Get In Touch
+            </h2>
+            <p class="text-gray-400 mb-8 text-sm md:text-base" data-aos="fade-up" data-aos-delay="100">
+                I'm currently looking for internship opportunities in Web Development.
+                Feel free to reach out — my inbox is always open!
+            </p>
+
+            <div class="grid sm:grid-cols-3 gap-4 mb-8" data-aos="fade-up" data-aos-delay="200">
+                <a href="mailto:amarjeet62063@gmail.com" class="glass p-5 rounded-xl border border-navy-border card-hover group">
+                    <i class="fas fa-envelope text-2xl text-accent-blue mb-2 group-hover:scale-110 transition"></i>
+                    <p class="text-xs text-gray-400 break-all">amarjeet62063@gmail.com</p>
+                </a>
+                <a href="tel:+916206354687" class="glass p-5 rounded-xl border border-navy-border card-hover group">
+                    <i class="fas fa-phone text-2xl text-accent-teal mb-2 group-hover:scale-110 transition"></i>
+                    <p class="text-xs text-gray-400">+91-6206354687</p>
+                </a>
+                <a href="https://www.linkedin.com/in/amarjeet-kushwaha-136b34365/" class="glass p-5 rounded-xl border border-navy-border card-hover group">
+                    <i class="fab fa-linkedin text-2xl text-accent-purple mb-2 group-hover:scale-110 transition"></i>
+                    <p class="text-xs text-gray-400">LinkedIn</p>
+                </a>
+            </div>
+
+            <a href="mailto:amarjeet62063@gmail.com" class="inline-block px-8 md:px-10 py-3 bg-accent-blue text-white font-semibold rounded-lg hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all transform hover:-translate-y-1 text-sm shadow-lg shadow-accent-blue/25" data-aos="zoom-in">
+                Say Hello <i class="fas fa-paper-plane ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-5 text-center text-gray-500 text-xs border-t border-navy-border">
+        <p class="font-mono text-sm">
+            Designed &amp; Built by <span class="text-accent-blue font-semibold">AMARJEET KUSHWAHA</span>
+        </p>
+        <p class="mt-1 text-[10px] text-gray-600">&copy; 2026 All rights reserved.</p>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+    </script>
+    <script>
+        AOS.init({ duration: 700, once: true, offset: 80 });
+
+        // ===== Mobile Menu =====
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // ===== Typewriter =====
+        const roles = [
+            "Web Developer",
+            "BCA Student",
+            "Frontend Enthusiast",
+            "React Learner",
+            "Problem Solver"
+        ];
+        let roleIndex = 0,
+            charIndex = 0,
+            isDeleting = false;
+        const el = document.getElementById('typewriter');
+
+        function type() {
+            const current = roles[roleIndex];
+            if (isDeleting) {
+                el.textContent = current.substring(0, charIndex--);
+            } else {
+                el.textContent = current.substring(0, charIndex++);
+            }
+            let speed = isDeleting ? 40 : 80;
+            if (!isDeleting && charIndex === current.length) {
+                speed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                speed = 500;
+            }
+            setTimeout(type, speed);
+        }
+        type();
+
+        // ===== Close mobile menu on link click =====
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+    </script>
+</body>
+</html>
